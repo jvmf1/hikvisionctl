@@ -26,6 +26,7 @@ parser.add_argument("-p", "--password", required=True)
 parser.add_argument("-i", "--ip", required=True)
 parser.add_argument("--id")
 parser.add_argument("--auth", default='digest', help='digest | basic', metavar='')
+
 parser.add_argument("--set-time-mode", help='NTP | manual', metavar='')
 parser.add_argument("--set-localtime", help='2022-06-29T02:19:39+08:00', metavar='')
 parser.add_argument("--set-timezone", help='CST-8:00:00', metavar='')
@@ -56,6 +57,7 @@ parser.add_argument("--set-overlay-date-style", help='12hour | 24hour', metavar=
 parser.add_argument("--set-overlay-1-text", metavar='')
 parser.add_argument("--set-overlay-1-position", help='x,y', metavar='')
 parser.add_argument("--set-overlay-1-enable", help='true | false', metavar='')
+
 parser.add_argument("--reboot", action='store_true')
 
 parser.add_argument("--list-time", action='store_true')
@@ -370,7 +372,7 @@ if args.set_overlay_1_enable:
         for item in overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay']:
             if item['id'] == '1':
                 item['enabled'] = args.set_overlay_1_enable
-    except:
+    except KeyError:
         overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay'] = []
         overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay'].append({'id': '1', 'enabled': args.set_overlay_1_enable})
 
