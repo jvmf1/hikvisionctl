@@ -2,10 +2,10 @@
 cli tool for configurating hikvision cameras
 # example
 ```sh
-./camera.py -u admin -p password -i 192.168.0.10 --set-codec H.264
+hikvision-config -u admin -p password -i 192.168.0.10 --set-codec H.264
 ```
 ```sh
-usage: camera.py [-h] -u USER -p PASSWORD -i IP [--id ID] [--auth]
+usage: hikvision-config [-h] -u USER -p PASSWORD -i IP [--id ID] [--auth]
                  [--set-time-mode] [--set-localtime] [--set-timezone]
                  [--set-ntp-server] [--set-ntp-port] [--set-ntp-interval]
                  [--set-audio] [--set-audio-codec] [--set-fps] [--set-bitrate]
