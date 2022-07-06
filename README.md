@@ -1,5 +1,9 @@
 # hikvision-config
 cli tool for configurating hikvision cameras
+# install
+```sh
+pip3 install https://github.com/jvmf1/hikvision-config/archive/main.zip
+```
 # example
 ```sh
 hikvision-config -u admin -p password -i 192.168.0.10 --set-codec H.264
