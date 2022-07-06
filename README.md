@@ -1,15 +1,15 @@
-# hikvision-config
+# hikvisionctl
 cli tool for configurating hikvision cameras
 # install
 ```sh
-pip3 install https://github.com/jvmf1/hikvision-config/archive/main.zip
+pip3 install https://github.com/jvmf1/hikvisionctl/archive/main.zip
 ```
 # example
 ```sh
-hikvision-config -u admin -p password -i 192.168.0.10 --set-codec H.264
+hikvisionctl -u admin -p password -i 192.168.0.10 --set-codec H.264
 ```
 ```sh
-usage: hikvision-config [-h] -u USER -p PASSWORD -i IP [--id ID] [--auth]
+usage: hikvisionctl [-h] -u USER -p PASSWORD -i IP [--id ID] [--auth]
                  [--set-time-mode] [--set-localtime] [--set-timezone]
                  [--set-ntp-server] [--set-ntp-port] [--set-ntp-interval]
                  [--set-audio] [--set-audio-codec] [--set-fps] [--set-bitrate]
