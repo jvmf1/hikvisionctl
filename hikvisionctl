@@ -13,6 +13,7 @@ parser.add_argument("-u", "--user", "--username", required=True)
 parser.add_argument("-p", "--password", required=True)
 parser.add_argument("-i", "--ip", required=True)
 parser.add_argument("--id", metavar='101', help='--list-channels to show all available options')
+parser.add_argument("--network-id", metavar='id', help='--list-network to show all ids')
 parser.add_argument("--auth", default='digest', choices=['digest','basic'])
 parser.add_argument("--set-time-mode", choices=['NTP','manual'])
 parser.add_argument("--set-localtime", metavar='2022-06-29T02:19:39+08:00')
@@ -44,6 +45,7 @@ parser.add_argument("--set-overlay-date-style", choices=['12hour','24hour'])
 parser.add_argument("--set-overlay-1-text", metavar='text')
 parser.add_argument("--set-overlay-1-position", metavar='x,y')
 parser.add_argument("--set-overlay-1-enable", choices=['true', 'false'])
+parser.add_argument("--set-ip", metavar='ip', help='make sure to --reboot after setting ip')
 parser.add_argument("--reboot", action='store_true')
 
 parser.add_argument("--list-time", action='store_true')
@@ -101,6 +103,12 @@ def get_xml_time():
 
 def get_xml_ntp():
     data = session.get(f"http://{args.ip}/ISAPI/System/time/ntpServers/1").content
+    data = xmltodict.parse(data)
+    data = todict(data)
+    return data
+
+def get_xml_network():
+    data = session.get(f"http://{args.ip}/ISAPI/System/Network/interfaces").content
     data = xmltodict.parse(data)
     data = todict(data)
     return data
@@ -253,7 +261,6 @@ if listing:
                 pprint(i)
                 print('-'*w)
 
-
     sys.exit()
 
 if args.set_audio or args.set_fps or args.set_resolution or args.set_quality or args.set_smoothing or args.set_codec or args.set_bitrate or args.set_audio_codec:
@@ -279,6 +286,14 @@ if args.set_ntp_server or args.set_ntp_port or args.set_ntp_interval:
 if args.set_flashing or args.set_transparent or args.set_fontsize or args.set_font_align or args.set_overlay_name_enable or args.set_overlay_name_position or args.set_overlay_date_enable or args.set_overlay_date_position or args.set_overlay_date_week or args.set_overlay_date_format or args.set_overlay_date_style or args.set_overlay_1_text or args.set_overlay_1_enable or args.set_overlay_1_position:
     edit_overlay = True
     overlay_data = get_xml_overlay()
+
+if args.set_ip and args.network_id == None:
+    print('missing --network-id')
+    sys.exit()
+
+if args.set_ip:
+    edit_network = True
+    network_data = get_xml_network()
 
 if edit_channel:
 
@@ -416,6 +431,14 @@ if edit_overlay:
             if item['id'] == '1':
                 item['displayText'] = args.set_overlay_1_text
 
+if edit_network:
+
+    if args.set_ip:
+        if type(network_data['NetworkInterfaceList']['NetworkInterface']) == dict:
+            network_data['NetworkInterfaceList']['NetworkInterface']['IPAddress']['ipAddress'] = args.set_ip
+
+    print(network_data['NetworkInterfaceList']['NetworkInterface']['IPAddress']['ipAddress'])
+
 if edit_channel:
     session.put(f"http://{args.ip}/ISAPI/Streaming/channels", data=xmltodict.unparse(channel_data))
 
@@ -430,3 +453,10 @@ if edit_ntp:
 
 if edit_overlay:
     session.put(f"http://{args.ip}/ISAPI/System/Video/inputs/channels/1/overlays", data=xmltodict.unparse(overlay_data))
+
+if edit_network:
+    if type(network_data['NetworkInterfaceList']['NetworkInterface']) == list:
+        for k in network_data['NetworkInterfaceList']['NetworkInterface']:
+            if str(k) != str(args.network_id):
+                del k
+    session.put(f"http://{args.ip}/ISAPI/System/Network/interfaces/{args.network_id}", data=xmltodict.unparse(network_data))
