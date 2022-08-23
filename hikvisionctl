@@ -437,8 +437,6 @@ if edit_network:
         if type(network_data['NetworkInterfaceList']['NetworkInterface']) == dict:
             network_data['NetworkInterfaceList']['NetworkInterface']['IPAddress']['ipAddress'] = args.set_ip
 
-    print(network_data['NetworkInterfaceList']['NetworkInterface']['IPAddress']['ipAddress'])
-
 if edit_channel:
     session.put(f"http://{args.ip}/ISAPI/Streaming/channels", data=xmltodict.unparse(channel_data))
 
