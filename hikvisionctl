@@ -55,6 +55,7 @@ parser.add_argument("--list-channel", action='store_true')
 parser.add_argument("--list-capabilities", action='store_true')
 parser.add_argument("--list-deviceinfo", action='store_true')
 parser.add_argument("--list-overlay", action='store_true')
+parser.add_argument("--list-network", action='store_true')
 parser.add_argument("--list-overlay-capabilities", action='store_true')
 
 args = parser.parse_args()
@@ -141,7 +142,7 @@ if args.reboot:
     session.put(f'http://{args.ip}/ISAPI/System/reboot')
     sys.exit()
 
-if args.list_time or args.list_channels or args.list_capabilities or args.list_deviceinfo or args.list_overlay or args.list_overlay_capabilities or args.list_time_capabilities or args.list_online_users or args.list_users or args.list_channel:
+if args.list_time or args.list_channels or args.list_capabilities or args.list_deviceinfo or args.list_overlay or args.list_overlay_capabilities or args.list_time_capabilities or args.list_online_users or args.list_users or args.list_channel or args.list_network:
     listing = True
     print('-'*w)
 
@@ -239,6 +240,12 @@ if listing:
             if i['id'] == args.id:
                 pprint(i)
                 print('-'*w)
+
+    if args.list_network:
+        network_data = session.get(f"http://{args.ip}/ISAPI/System/Network/interfaces/1/capabilities").content
+        network_data = xmltodict.parse(network_data)['NetworkInterface']
+        pprint(network_data)
+        print('-'*w)
 
     sys.exit()
 
