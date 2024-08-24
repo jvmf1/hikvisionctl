@@ -2,21 +2,9 @@
 import json
 import os
 import sys
-
-try:
-    import requests
-except ImportError:
-    print('pip install requests')
-    sys.exit()
-
+import requests
 import argparse
-
-try:
-    import xmltodict
-except ImportError:
-    print('pip install xmltodict')
-    sys.exit()
-
+import xmltodict
 from requests.auth import HTTPDigestAuth
 from requests.auth import HTTPBasicAuth
 
