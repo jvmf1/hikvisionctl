@@ -6,7 +6,7 @@ pip3 install https://github.com/jvmf1/hikvisionctl/archive/main.zip
 ```
 # example
 ```sh
-hikvisionctl -u admin -p password -i 192.168.0.10 --set-codec H.264
+hikvisionctl -u admin -p password -i 192.168.0.10 --set-codec H.264 --id 101
 ```
 ```sh
 usage: hikvisionctl [-h] -u USER -p PASSWORD -i IP [--id ID] [--auth {digest,basic}] [--set-time-mode {NTP,manual}] [--set-localtime 2022-06-29T02:19:39+08:00]
