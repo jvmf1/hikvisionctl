@@ -60,6 +60,7 @@ parser.add_argument("--list-overlay-capabilities", action='store_true')
 
 args = parser.parse_args()
 
+edit_network = False
 edit_channel = False
 edit_device_info = False
 edit_time = False
@@ -242,10 +243,16 @@ if listing:
                 print('-'*w)
 
     if args.list_network:
-        network_data = session.get(f"http://{args.ip}/ISAPI/System/Network/interfaces/1/capabilities").content
-        network_data = xmltodict.parse(network_data)['NetworkInterface']
-        pprint(network_data)
-        print('-'*w)
+        network_data = session.get(f"http://{args.ip}/ISAPI/System/Network/interfaces").content
+        network_data = xmltodict.parse(network_data)
+        if type(network_data['NetworkInterfaceList']['NetworkInterface']) == dict:
+            pprint(network_data['NetworkInterfaceList']['NetworkInterface'])
+            print('-'*w)
+        else:
+            for i in network_data['NetworkInterfaceList']['NetworkInterface']:
+                pprint(i)
+                print('-'*w)
+
 
     sys.exit()
 
