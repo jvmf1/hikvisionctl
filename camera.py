@@ -244,128 +244,128 @@ if args.list_capabilities:
 
 ###########################333
 
-if args.set_audio != None or args.set_fps != None or args.set_resolution != None or args.set_quality != None or args.set_smoothing != None or args.set_codec != None or args.set_bitrate != None or args.set_audio_codec != None:
+if args.set_audio or args.set_fps or args.set_resolution or args.set_quality or args.set_smoothing or args.set_codec or args.set_bitrate or args.set_audio_codec:
     if args.id == None:
         print('missing --id')
         sys.exit()
     channel_data = get_xml_channels()
 
-if args.set_name != None or args.set_device_number != None:
+if args.set_name or args.set_device_number:
     deviceinfo_data = get_xml_deviceinfo()
 
-if args.set_time_mode != None or args.set_localtime != None or args.set_timezone != None:
+if args.set_time_mode or args.set_localtime or args.set_timezone:
     time_data = get_xml_time()
 
-if args.set_ntp_server != None or args.set_ntp_port != None or args.set_ntp_interval != None:
+if args.set_ntp_server or args.set_ntp_port or args.set_ntp_interval:
     ntp_data = get_xml_ntp()
 
-if args.set_flashing != None or args.set_transparent != None or args.set_fontsize != None or args.set_font_align or args.set_overlay_name_enable != None or args.set_overlay_name_position != None or args.set_overlay_date_enable != None or args.set_overlay_date_position != None or args.set_overlay_date_week != None or args.set_overlay_date_format != None or args.set_overlay_date_style != None or args.set_overlay_1_text != None or args.set_overlay_1_enable != None or args.set_overlay_1_position != None:
+if args.set_flashing or args.set_transparent or args.set_fontsize or args.set_font_align or args.set_overlay_name_enable or args.set_overlay_name_position or args.set_overlay_date_enable or args.set_overlay_date_position or args.set_overlay_date_week or args.set_overlay_date_format or args.set_overlay_date_style or args.set_overlay_1_text or args.set_overlay_1_enable or args.set_overlay_1_position:
     overlay_data = get_xml_overlay()
 
-if args.set_audio != None:
+if args.set_audio:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Audio']['enabled'] = args.set_audio
 
-if args.set_fps != None:
+if args.set_fps:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Video']['maxFrameRate'] = args.set_fps
 
-if args.set_resolution != None:
+if args.set_resolution:
     width, height = args.set_resolution.split('x')
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Video']['videoResolutionWidth'] = width
             v['Video']['videoResolutionHeight'] = height
 
-if args.set_quality != None:
+if args.set_quality:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Video']['fixedQuality'] = args.set_quality
 
-if args.set_smoothing != None:
+if args.set_smoothing:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Video']['smoothing'] = args.set_smoothing
 
-if args.set_codec != None:
+if args.set_codec:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Video']['videoCodecType'] = args.set_codec
 
-if args.set_bitrate != None:
+if args.set_bitrate:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Video']['vbrUpperCap'] = args.set_bitrate
 
-if args.set_audio_codec != None:
+if args.set_audio_codec:
     for v in channel_data['StreamingChannelList']['StreamingChannel']:
         if v['id'] == args.id:
             v['Audio']['audioCompressionType'] = args.set_audio_codec
 
-if args.set_name != None:
+if args.set_name:
     deviceinfo_data['DeviceInfo']['deviceName'] = args.set_name
 
-if args.set_device_number != None:
+if args.set_device_number:
     deviceinfo_data['DeviceInfo']['telecontrolID'] = args.set_device_number
 
-if args.set_time_mode != None:
+if args.set_time_mode:
     time_data['Time']['timeMode'] = args.set_time_mode
 
-if args.set_localtime != None:
+if args.set_localtime:
     time_data['Time']['localTime'] = args.set_localtime
 
-if args.set_timezone != None:
+if args.set_timezone:
     time_data['Time']['timeZone'] = args.set_timezone
 
-if args.set_ntp_server != None:
+if args.set_ntp_server:
     ntp_data['NTPServer']['hostName'] = args.set_ntp_server
 
-if args.set_ntp_port != None:
+if args.set_ntp_port:
     ntp_data['NTPServer']['portNo'] = args.set_ntp_port
 
-if args.set_ntp_interval != None:
+if args.set_ntp_interval:
     ntp_data['NTPServer']['synchronizeInterval'] = args.set_ntp_interval
 
-if args.set_flashing != None:
+if args.set_flashing:
     overlay_data['VideoOverlay']['attribute']['flashing'] = args.set_flashing
 
-if args.set_transparent != None:
+if args.set_transparent:
     overlay_data['VideoOverlay']['attribute']['transparent'] = args.set_transparent
 
-if args.set_fontsize != None:
+if args.set_fontsize:
     overlay_data['VideoOverlay']['fontSize'] = args.set_fontsize
 
-if args.set_font_align != None:
+if args.set_font_align:
     overlay_data['VideoOverlay']['alignment'] = args.set_font_align
 
-if args.set_overlay_name_enable != None:
+if args.set_overlay_name_enable:
     overlay_data['VideoOverlay']['channelNameOverlay']['enabled'] = args.set_overlay_name_enable
 
-if args.set_overlay_name_position != None:
+if args.set_overlay_name_position:
     x,y = args.set_overlay_name_position.split(',')
     overlay_data['VideoOverlay']['channelNameOverlay']['positionX'] = x
     overlay_data['VideoOverlay']['channelNameOverlay']['positionY'] = y
 
-if args.set_overlay_date_enable != None:
+if args.set_overlay_date_enable:
     overlay_data['VideoOverlay']['DateTimeOverlay']['enabled'] = args.set_overlay_date_enable
 
-if args.set_overlay_date_position != None:
+if args.set_overlay_date_position:
     x,y = args.set_overlay_date_position.split(',')
     overlay_data['VideoOverlay']['DateTimeOverlay']['positionX'] = x
     overlay_data['VideoOverlay']['DateTimeOverlay']['positionY'] = y
 
-if args.set_overlay_date_week != None:
+if args.set_overlay_date_week:
     overlay_data['VideoOverlay']['DateTimeOverlay']['displayWeek'] = args.set_overlay_date_week
 
-if args.set_overlay_date_format != None:
+if args.set_overlay_date_format:
     overlay_data['VideoOverlay']['DateTimeOverlay']['dateStyle'] = args.set_overlay_date_format
 
-if args.set_overlay_date_style != None:
+if args.set_overlay_date_style:
     overlay_data['VideoOverlay']['DateTimeOverlay']['timeStyle'] = args.set_overlay_date_style
 
-if args.set_overlay_1_enable != None:
+if args.set_overlay_1_enable:
     try:
         for item in overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay']:
             if item['id'] == '1':
@@ -374,7 +374,7 @@ if args.set_overlay_1_enable != None:
         overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay'] = []
         overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay'].append({'id': '1', 'enabled': args.set_overlay_1_enable})
 
-if args.set_overlay_1_position != None:
+if args.set_overlay_1_position:
     x,y = args.set_overlay_1_position.split(',')
     for item in overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay']:
         if item['id'] == '1':
@@ -382,22 +382,22 @@ if args.set_overlay_1_position != None:
             item['positionY'] = y
 
 
-if args.set_overlay_1_text != None:
+if args.set_overlay_1_text:
     for item in overlay_data['VideoOverlay']['TextOverlayList']['TextOverlay']:
         if item['id'] == '1':
             item['displayText'] = args.set_overlay_1_text
 
-if args.set_audio != None or args.set_fps != None or args.set_resolution != None or args.set_quality != None or args.set_smoothing != None or args.set_codec != None or args.set_bitrate != None or args.set_audio_codec != None:
+if args.set_audio or args.set_fps or args.set_resolution or args.set_quality or args.set_smoothing or args.set_codec or args.set_bitrate or args.set_audio_codec:
     session.put(f"http://{args.ip}/ISAPI/Streaming/channels", data=xmltodict.unparse(channel_data))
 
-if args.set_name != None or args.set_device_number != None:
+if args.set_name or args.set_device_number:
     session.put(f"http://{args.ip}/ISAPI/System/deviceinfo", data=xmltodict.unparse(deviceinfo_data))
 
-if args.set_time_mode != None or args.set_localtime != None or args.set_timezone != None:
+if args.set_time_mode or args.set_localtime or args.set_timezone:
     session.put(f"http://{args.ip}/ISAPI/System/time", data=xmltodict.unparse(time_data))
 
-if args.set_ntp_server != None or args.set_ntp_port != None or args.set_ntp_interval != None:
+if args.set_ntp_server or args.set_ntp_port or args.set_ntp_interval:
     session.put(f"http://{args.ip}/ISAPI/System/time/ntpServers/1", data=xmltodict.unparse(ntp_data))
 
-if args.set_flashing != None or args.set_transparent != None or args.set_fontsize != None or args.set_font_align != None or args.set_overlay_name_enable != None or args.set_overlay_name_position != None or args.set_overlay_date_enable != None or args.set_overlay_date_position != None or args.set_overlay_date_week != None or args.set_overlay_date_format != None or args.set_overlay_date_style != None or args.set_overlay_1_text != None or args.set_overlay_1_enable != None or args.set_overlay_1_position != None:
+if args.set_flashing or args.set_transparent or args.set_fontsize or args.set_font_align or args.set_overlay_name_enable or args.set_overlay_name_position or args.set_overlay_date_enable or args.set_overlay_date_position or args.set_overlay_date_week or args.set_overlay_date_format or args.set_overlay_date_style or args.set_overlay_1_text or args.set_overlay_1_enable or args.set_overlay_1_position:
     session.put(f"http://{args.ip}/ISAPI/System/Video/inputs/channels/1/overlays", data=xmltodict.unparse(overlay_data))
