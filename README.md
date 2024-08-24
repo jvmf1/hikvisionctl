@@ -1,3 +1,4 @@
+Moved to https://github.com/jvmf1/hikvision
 # hikvisionctl
 cli tool for configurating hikvision cameras
 # install
