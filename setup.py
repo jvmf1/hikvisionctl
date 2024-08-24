@@ -6,5 +6,5 @@ setup(
     author='jvmf1',
     license='LICENSE',
     packages=find_packages(),
-    scripts = ['hikvision-config']
+    scripts = ['hikvisionctl']
 )
