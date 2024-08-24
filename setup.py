@@ -5,6 +5,6 @@ setup(
     version='0.1',
     author='jvmf1',
     license='LICENSE',
-    packages=find_packages(),
+    install_requires=['xmltodict','requests'],
     scripts = ['hikvisionctl']
 )
