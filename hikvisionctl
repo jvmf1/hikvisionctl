@@ -134,6 +134,7 @@ if args.auth == 'basic':
 
 if args.reboot:
     session.put(f'http://{args.ip}/ISAPI/System/reboot')
+    sys.exit()
 
 if args.list_time or args.list_channels or args.list_capabilities or args.list_deviceinfo or args.list_overlay or args.list_overlay_capabilities or args.list_time_capabilities or args.list_online_users or args.list_users:
     print('-'*w)
