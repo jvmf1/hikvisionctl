@@ -51,6 +51,7 @@ parser.add_argument("--list-online-users", action='store_true')
 parser.add_argument("--list-users", action='store_true')
 parser.add_argument("--list-time-capabilities", action='store_true')
 parser.add_argument("--list-channels", action='store_true')
+parser.add_argument("--list-channel", action='store_true')
 parser.add_argument("--list-capabilities", action='store_true')
 parser.add_argument("--list-deviceinfo", action='store_true')
 parser.add_argument("--list-overlay", action='store_true')
@@ -140,7 +141,7 @@ if args.reboot:
     session.put(f'http://{args.ip}/ISAPI/System/reboot')
     sys.exit()
 
-if args.list_time or args.list_channels or args.list_capabilities or args.list_deviceinfo or args.list_overlay or args.list_overlay_capabilities or args.list_time_capabilities or args.list_online_users or args.list_users:
+if args.list_time or args.list_channels or args.list_capabilities or args.list_deviceinfo or args.list_overlay or args.list_overlay_capabilities or args.list_time_capabilities or args.list_online_users or args.list_users or args.list_channel:
     listing = True
     print('-'*w)
 
@@ -226,6 +227,18 @@ if listing:
         capabilities_data = todict(capabilities_data)
         pprint(capabilities_data['StreamingChannel'],ignoreat=False)
         print('-'*w)
+
+    if args.list_channel:
+        if args.id == None:
+            print('missing --id')
+            sys.exit()
+        streaming_data = session.get(f"http://{args.ip}/ISAPI/Streaming/channels").content
+        streaming_data = xmltodict.parse(streaming_data)
+        streaming_data = todict(streaming_data)
+        for i in streaming_data['StreamingChannelList']['StreamingChannel']:
+            if i['id'] == args.id:
+                pprint(i)
+                print('-'*w)
 
     sys.exit()
 
